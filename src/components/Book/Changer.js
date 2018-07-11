@@ -26,35 +26,51 @@ const Item = styled.option`
 `
 Item.displayName = 'Item'
 
-function Changer(props) {
-    return (
-        <Wrapper 
-            diameter={40}
-            iconSize={20}
-            backgroundColor="#60ac5d"
-            iconSource={arrowDropDownIcon}
-            >
-            <Menu defaultValue={props.selectedOption}>
-                <Item value="move" disabled>Move to...</Item>
-                {props.options.map((option, index) =>
-                    <Item
-                        key={index}
-                        value={option.value}>{option.label}</Item>
-                )}
-                <Item value="none">None</Item>
-            </Menu>
-        </Wrapper>
-    )
+class Changer extends React.Component {
+    render() {
+        return (
+            <Wrapper 
+                diameter={40}
+                iconSize={20}
+                backgroundColor="#60ac5d"
+                iconSource={arrowDropDownIcon}
+                >
+                <Menu 
+                    defaultValue={this.props.selectedOption}
+                    onChange={this.handleChange}>
+                    <Item 
+                        value="move" 
+                        disabled>Move to...</Item>
+                    {this.props.options.map((option, index) =>
+                        <Item
+                            key={index}
+                            value={option.id}>{option.title}</Item>
+                    )}
+                    <Item value="none">None</Item>
+                </Menu>
+            </Wrapper>
+        )
+    }
+
+    handleChange = evt => {
+        this.props.onChangeShelf(evt.target.value)
+    }
+}
+
+Changer.defaultProps = {
+    options: [],
+    onChangeShelf: () => {}
 }
 
 Changer.propTypes = {
     selectedOption: PropTypes.string.isRequired,
     options: PropTypes.arrayOf(
         PropTypes.shape({
-            value: PropTypes.string.isRequired,
-            label: PropTypes.string.isRequired
+            id: PropTypes.string.isRequired,
+            title: PropTypes.string.isRequired
           })
-    ).isRequired
+    ).isRequired,
+    onChangeShelf: PropTypes.func.isRequired
 }
 
 export default Changer

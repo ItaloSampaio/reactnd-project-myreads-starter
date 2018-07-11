@@ -1,88 +1,113 @@
 import React from 'react'
 
 import Book from '../../components/Book'
+import Loading from '../../components/Loading'
 
 import AppBar from './AppBar'
 import BooksContent from './BooksContent'
 import Bookshelf from './Bookshelf'
 import OpenSearchButton from './OpenSearchButton'
 
-export default class MainPage extends React.Component {
+import withShelves from '../withShelves'
+
+import * as BooksAPI from '../../api/BooksAPI'
+import { handleNetworkError } from '../../utils'
+
+class MainPage extends React.Component {
     state = {
-        shelves: [
-            { id: 'currentlyReading', title: 'Currently Reading' },
-            { id: 'wantToRead', title: 'Want to Read' },
-            { id: 'read', title: 'Want to Read' }
-        ]
+        books: [],
+        loading: true
     }
 
     render() {
+        const { shelves } = this.props
+        const { loading } = this.state
+
         return (
             <div>
                 <AppBar />
                 <BooksContent>
-                    <Bookshelf title="Currently Reading">
-                        <Book
-                            coverWidth={128}
-                            coverHeight={193}
-                            coverImageSource={"http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api"}
-                            title="To Kill a Mockingbird"
-                            authors="Harper Lee"
-                            />
-                        <Book
-                            coverWidth={128}
-                            coverHeight={188}
-                            coverImageSource={"http://books.google.com/books/content?id=yDtCuFHXbAYC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE72RRiTR6U5OUg3IY_LpHTL2NztVWAuZYNFE8dUuC0VlYabeyegLzpAnDPeWxE6RHi0C2ehrR9Gv20LH2dtjpbcUcs8YnH5VCCAH0Y2ICaKOTvrZTCObQbsfp4UbDqQyGISCZfGN&source=gbs_api"}
-                            title="Ender's Game"
-                            authors="Orson Scott Card"
-                            />
-                    </Bookshelf>
-                    <Bookshelf title="Want to Read">
-                        <Book
-                            coverWidth={128}
-                            coverHeight={193}
-                            coverImageSource={"http://books.google.com/books/content?id=uu1mC6zWNTwC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73pGHfBNSsJG9Y8kRBpmLUft9O4BfItHioHolWNKOdLavw-SLcXADy3CPAfJ0_qMb18RmCa7Ds1cTdpM3dxAGJs8zfCfm8c6ggBIjzKT7XR5FIB53HHOhnsT7a0Cc-PpneWq9zX&source=gbs_api"}
-                            title="1776"
-                            authors="David McCullough"
-                            />
-                        <Book
-                            coverWidth={128}
-                            coverHeight={192}
-                            coverImageSource={"http://books.google.com/books/content?id=wrOQLV6xB-wC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE72G3gA5A-Ka8XjOZGDFLAoUeMQBqZ9y-LCspZ2dzJTugcOcJ4C7FP0tDA8s1h9f480ISXuvYhA_ZpdvRArUL-mZyD4WW7CHyEqHYq9D3kGnrZCNiqxSRhry8TiFDCMWP61ujflB&source=gbs_api"}
-                            title="Harry Potter and the Sorcerer's Stone"
-                            authors="J.K. Rowling"
-                            />
-                    </Bookshelf>
-                    <Bookshelf title="Read">
-                        <Book
-                            coverWidth={128}
-                            coverHeight={192}
-                            coverImageSource={"http://books.google.com/books/content?id=pD6arNyKyi8C&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE70Rw0CCwNZh0SsYpQTkMbvz23npqWeUoJvVbi_gXla2m2ie_ReMWPl0xoU8Quy9fk0Zhb3szmwe8cTe4k7DAbfQ45FEzr9T7Lk0XhVpEPBvwUAztOBJ6Y0QPZylo4VbB7K5iRSk&source=gbs_api"}
-                            title="The Hobbit"
-                            authors="J.R.R. Tolkien"
-                            />
-                        <Book
-                            coverWidth={128}
-                            coverHeight={174}
-                            coverImageSource={"http://books.google.com/books/content?id=1q_xAwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE712CA0cBYP8VKbEcIVEuFJRdX1k30rjLM29Y-dw_qU1urEZ2cQ42La3Jkw6KmzMmXIoLTr50SWTpw6VOGq1leINsnTdLc_S5a5sn9Hao2t5YT7Ax1RqtQDiPNHIyXP46Rrw3aL8&source=gbs_api"}
-                            title="Oh, the Places You'll Go!"
-                            authors="Seuss"
-                            />
-                        <Book
-                            coverWidth={128}
-                            coverHeight={192}
-                            coverImageSource={"http://books.google.com/books/content?id=32haAAAAMAAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE72yckZ5f5bDFVIf7BGPbjA0KYYtlQ__nWB-hI_YZmZ-fScYwFy4O_fWOcPwf-pgv3pPQNJP_sT5J_xOUciD8WaKmevh1rUR-1jk7g1aCD_KeJaOpjVu0cm_11BBIUXdxbFkVMdi&source=gbs_api"}
-                            title="The Adventures of Tom Sawyer"
-                            authors="Mark Twain"
-                            />
-                    </Bookshelf>
+                    {loading
+                        ? <Loading />
+                        : shelves.map(this.renderShelf)
+                    }
                 </BooksContent>
                 <OpenSearchButton onClick={this.goToSearchPage} />
             </div>
         )
     }
 
+    renderShelf = shelfData => {
+        const { shelves } = this.props
+        const { books } = this.state
+
+        const filteredBooks = this.getBooksDataByShelf(shelfData.id, books)
+
+        return (
+            <Bookshelf
+                key={shelfData.id}
+                title={shelfData.title}>
+                {filteredBooks.map(book =>
+                    <Book
+                        key={book.id}
+                        coverWidth={128}
+                        coverHeight={193}
+                        coverImageSource={book.imageLinks.thumbnail}
+                        title={book.title}
+                        authors={book.authors.join(', ')}
+                        currentShelf={book.shelf}
+                        shelves={shelves}
+                        onChangeShelf={this.handleShelfChange(book)}
+                        />
+                )}
+            </Bookshelf>   
+        )
+    }
+
+    getBooksDataByShelf = (shelfId, books) => {
+        return books.filter(book => book.shelf === shelfId)
+    }
+
     goToSearchPage = () => {
         this.props.history.push('/search')
     }
+
+    handleShelfChange = targetBook => async targetShelf => {
+        //Hold the old state to rollback if it's not possible to update the book in the API
+        const oldBooks = this.state.books
+        
+        const books = oldBooks.map(book => {
+            return book.id === targetBook.id
+                ?  { ...book, shelf: targetShelf }
+                : book
+        })
+        //Render optimistic result
+        this.setState({ books })
+        
+        try {
+            await BooksAPI.update(targetBook, targetShelf)
+        }
+        catch(err) {
+            const errorMessage = await handleNetworkError(err)
+            alert(errorMessage) // =(
+            //Rollback
+            this.setState({ books: oldBooks })            
+        }
+    }
+
+    async componentDidMount() {
+        try {
+            const books = await BooksAPI.getAll()
+            this.setState({ books })
+        }
+        catch(err) {
+            const errorMessage = await handleNetworkError(err)
+            alert(errorMessage) // =(
+        }
+        finally {
+            this.setState({ loading: false })
+        }
+    }
 }
+
+export default withShelves(MainPage)

@@ -57,12 +57,9 @@ function Book(props) {
                         coverImageSource={props.coverImageSource}
                         />
                     <Changer 
-                        options={[
-                            { value: 'currentlyReading', label: 'Currently Reading' },
-                            { value: 'wantToRead', label: 'Want to Read' },
-                            { value: 'read', label: 'Read' }
-                        ]}
-                        selectedOption="currentlyReading"
+                        options={props.shelves}
+                        selectedOption={props.currentShelf}
+                        onChangeShelf={props.onChangeShelf}
                         />                    
                 </Top>
                 <Title>{props.title}</Title>
@@ -84,7 +81,15 @@ Book.propTypes = {
     coverHeight: PropTypes.number.isRequired,
     coverImageSource: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    authors: PropTypes.string.isRequired
+    authors: PropTypes.string.isRequired,
+    currentShelf: PropTypes.string.isRequired,
+    shelves: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.string.isRequired,
+            title: PropTypes.string.isRequired
+          })
+    ).isRequired,
+    onChangeShelf: PropTypes.func.isRequired
 }
 
 export default Book
