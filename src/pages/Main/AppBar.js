@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import PropTypes from 'prop-types'
 
 const Bar = styled.div`
     padding: 10px 0;
@@ -16,16 +15,10 @@ const Title = styled.h1`
 `
 Title.displayName = 'Title'
 
-function AppBar({ children }) {
+export default function AppBar({ children }) {
     return (
         <Bar>
-            <Title>{children}</Title>
+            <Title>MyReads</Title>
         </Bar>
     )
 }
-
-AppBar.propTypes = {
-    children: PropTypes.string.isRequired
-}
-
-export default AppBar
