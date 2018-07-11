@@ -28,22 +28,39 @@ const Input = styled.input`
     outline: none;
 `
 
-function Bar(props) {
-    return (
-        <Wrapper>
-            <CloseButton onClick={props.onCloseButtonClick}>Close</CloseButton>
-            <InputWrapper>
-                <Input 
-                    type="text" 
-                    placeholder="Search by title or author"
-                    />
-            </InputWrapper>
-        </Wrapper>
-    )
+class Bar extends React.Component {
+    render() {
+        return (
+            <Wrapper>
+                <CloseButton onClick={this.props.onCloseButtonClick}>Close</CloseButton>
+                <InputWrapper>
+                    <Input 
+                        type="text" 
+                        placeholder="Search by title or author"
+                        onChange={this.handleInputChange}
+                        />
+                </InputWrapper>
+            </Wrapper>
+        )
+    }
+
+    handleInputChange = evt => {
+        const terms = evt.target.value
+            .split(' ')
+            .filter(term => !!term) //Remove empty spaces
+            .join(' ')
+
+        this.props.onTermsChange(terms)
+    }
+}
+
+Bar.defaultProps = {
+    onTermsChange: () => {}
 }
 
 Bar.propTypes = {
-    onCloseButtonClick: PropTypes.func.isRequired
+    onCloseButtonClick: PropTypes.func.isRequired,
+    onTermsChange: PropTypes.func.isRequired
 }
 
 export default Bar

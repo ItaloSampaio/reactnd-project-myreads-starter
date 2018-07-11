@@ -54,7 +54,7 @@ class MainPage extends React.Component {
                         coverHeight={193}
                         coverImageSource={book.imageLinks.thumbnail}
                         title={book.title}
-                        authors={book.authors.join(', ')}
+                        authors={(book.authors || []).join(', ')}
                         currentShelf={book.shelf}
                         shelves={shelves}
                         onChangeShelf={this.handleShelfChange(book)}
