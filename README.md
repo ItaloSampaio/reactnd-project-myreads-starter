@@ -1,6 +1,6 @@
 # MyReads Project
 
-This project is a requirement of assessment process for Udacity's React Fundamentals course. It's a digital  mix of a book catalog and a private shelf, where users can search for books using terms and mark them as “currently reading”, “want to read” or “read”, managing them as they wish.
+This project is a requirement of assessment process for Udacity's React Fundamentals course. It's a digital  mix of a book catalog and a private shelf, where users can search for books using terms and mark them as "currently reading", "want to read" or "read", managing them as they wish.
 
 ## Get it running
 
