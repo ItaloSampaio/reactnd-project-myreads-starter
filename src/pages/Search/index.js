@@ -47,8 +47,8 @@ class SearchPage extends React.Component {
                 coverHeight={193}
                 coverImageSource={book.imageLinks.thumbnail}
                 title={book.title}
-                authors={(book.authors || []).join(', ')}
-                currentShelf={book.shelf || 'none'}
+                authors={book.authors}
+                currentShelf={book.shelf}
                 shelves={this.props.shelves}
                 onChangeShelf={this.handleShelfChange(book)}
                 />
@@ -67,21 +67,9 @@ class SearchPage extends React.Component {
             this.setState({ loading: true })
 
             const result = await BooksAPI.search(terms)
+            const books = this.handleSearchResult(result)
 
-            if(result instanceof Array) {
-                //Merge result with current books
-                const books = result.map(targetBook => {
-                    const alreadySelectedBook = this.state.currentBooks.find(book => 
-                        book.id === targetBook.id
-                    )
-
-                    return alreadySelectedBook || targetBook
-                })
-
-                this.setState({ books })
-            }
-            
-            else this.setState({ books: [] })
+            this.setState({ books })
         }
         catch(err) {
             const errorMessage = await handleNetworkError(err)
@@ -91,6 +79,29 @@ class SearchPage extends React.Component {
             this.setState({ loading: false })
         }
     }, 300)
+
+    handleSearchResult = result => {
+
+        if(!(result instanceof Array))
+            return []
+
+        return result
+            //Merge result with current books
+            .map(targetBook => { 
+                const alreadySelectedBook = this.state.currentBooks.find(book => 
+                    book.id === targetBook.id
+                )
+
+                return alreadySelectedBook || targetBook
+            })
+            //Normalize data
+            .map(book => ({ 
+                ...book,
+                imageLinks: book.imageLinks || {},
+                authors: (book.authors || []).join(', '),
+                shelf: book.shelf || 'none'
+            }))
+    }
 
     handleShelfChange = targetBook => async targetShelf => {
         //Hold the old state to rollback if it's not possible to update the book in the API
@@ -117,12 +128,18 @@ class SearchPage extends React.Component {
 
     async componentDidMount() {
         try {
+            this.setState({ loading: true })
+            
             const currentBooks = await BooksAPI.getAll()
+            
             this.setState({ currentBooks })
         }
         catch(err) {
             const errorMessage = await handleNetworkError(err)
             alert(errorMessage) // =(
+        }
+        finally {
+            this.setState({ loading: false })
         }
     }
 }

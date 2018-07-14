@@ -79,7 +79,7 @@ Book.defaultProps = {
 Book.propTypes = {
     coverWidth: PropTypes.number.isRequired,
     coverHeight: PropTypes.number.isRequired,
-    coverImageSource: PropTypes.string.isRequired,
+    coverImageSource: PropTypes.string,
     title: PropTypes.string.isRequired,
     authors: PropTypes.string.isRequired,
     currentShelf: PropTypes.string.isRequired,

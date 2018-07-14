@@ -22,7 +22,10 @@ function BooksGrid(props) {
 }
 
 BooksGrid.propTypes = {
-    children: PropTypes.arrayOf(PropTypes.element)
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.element),
+        PropTypes.element
+    ])
 }
 
 export default BooksGrid
