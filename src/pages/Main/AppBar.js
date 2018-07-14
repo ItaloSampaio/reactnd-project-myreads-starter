@@ -15,10 +15,10 @@ const Title = styled.h1`
 `
 Title.displayName = 'Title'
 
-export default function AppBar({ children }) {
-    return (
-        <Bar>
-            <Title>MyReads</Title>
-        </Bar>
-    )
-}
+const AppBar = () => (
+    <Bar>
+        <Title>MyReads</Title>
+    </Bar>
+)
+
+export default AppBar

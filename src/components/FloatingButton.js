@@ -23,11 +23,9 @@ const Wrapper = styled.div`
 `
 Wrapper.displayName = 'Wrapper'
 
-function FloatingButton(props) {
-    return (
-        <Wrapper {...props} />
-    )
-}
+const FloatingButton = props => (
+    <Wrapper {...props} />
+)
 
 FloatingButton.defaultProps = {
     diameter: 50,

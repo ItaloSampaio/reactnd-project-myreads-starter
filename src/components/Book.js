@@ -2,8 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
-import Changer from './Changer'
-
 const Wrapper = styled.li`
     padding: 10px 15px;
     text-align: left;
@@ -46,28 +44,22 @@ const Authors = styled(TextInfo)`
 `
 Authors.displayName = 'Authors'
 
-function Book(props) {
-    return (
-        <Wrapper>
-            <Content>
-                <Top>
-                    <Cover
-                        coverWidth={props.coverWidth}
-                        coverHeight={props.coverHeight}
-                        coverImageSource={props.coverImageSource}
-                        />
-                    <Changer 
-                        options={props.shelves}
-                        selectedOption={props.currentShelf}
-                        onChangeShelf={props.onChangeShelf}
-                        />                    
-                </Top>
-                <Title>{props.title}</Title>
-                <Authors>{props.authors}</Authors>
-            </Content>
-        </Wrapper>
-    )
-}
+const Book = props => (
+    <Wrapper>
+        <Content>
+            <Top>
+                <Cover
+                    coverWidth={props.coverWidth}
+                    coverHeight={props.coverHeight}
+                    coverImageSource={props.coverImageSource}
+                    />
+                {props.children}
+            </Top>
+            <Title>{props.title}</Title>
+            <Authors>{props.authors}</Authors>
+        </Content>
+    </Wrapper>
+)
 
 Book.defaultProps = {
     coverWidth:  128,
@@ -82,14 +74,6 @@ Book.propTypes = {
     coverImageSource: PropTypes.string,
     title: PropTypes.string.isRequired,
     authors: PropTypes.string.isRequired,
-    currentShelf: PropTypes.string.isRequired,
-    shelves: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            title: PropTypes.string.isRequired
-          })
-    ).isRequired,
-    onChangeShelf: PropTypes.func.isRequired
 }
 
 export default Book

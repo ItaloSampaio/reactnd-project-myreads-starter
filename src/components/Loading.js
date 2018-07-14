@@ -9,16 +9,16 @@ const Wrapper = styled.div`
     justify-content: center;
     align-items: center;
 `
+
+const Loading = () => (
+    <Wrapper>
+        <ReactLoading 
+            type="bubbles" 
+            color="#2e7c31" 
+            height={200} 
+            width={112} 
+            />
+    </Wrapper>
+)
  
-export default function Loading() {
-    return (
-        <Wrapper>
-            <ReactLoading 
-                type="bubbles" 
-                color="#2e7c31" 
-                height={200} 
-                width={112} 
-                />
-        </Wrapper>
-    )
-}
+export default Loading

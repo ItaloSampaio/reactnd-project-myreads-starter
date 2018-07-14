@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
+import { memoize, noop } from 'lodash'
 
 import CloseButton from './CloseButton'
 
@@ -28,34 +29,31 @@ const Input = styled.input`
     outline: none;
 `
 
-class Bar extends React.Component {
-    render() {
-        return (
-            <Wrapper>
-                <CloseButton onClick={this.props.onCloseButtonClick}>Close</CloseButton>
-                <InputWrapper>
-                    <Input 
-                        type="text" 
-                        placeholder="Search by title or author"
-                        onChange={this.handleInputChange}
-                        />
-                </InputWrapper>
-            </Wrapper>
-        )
-    }
+const handleInputChange = memoize(onTermsChange => evt => {
+    const terms = evt.target.value
+        .split(' ')
+        .filter(term => !!term) //Remove empty spaces
+        .join(' ')
 
-    handleInputChange = evt => {
-        const terms = evt.target.value
-            .split(' ')
-            .filter(term => !!term) //Remove empty spaces
-            .join(' ')
+    onTermsChange(terms)
+})
 
-        this.props.onTermsChange(terms)
-    }
-}
+const Bar = props => (
+    <Wrapper>
+        <CloseButton onClick={props.onCloseButtonClick}>Close</CloseButton>
+        <InputWrapper>
+            <Input 
+                type="text" 
+                placeholder="Search by title or author"
+                onChange={handleInputChange(props.onTermsChange)}
+                />
+        </InputWrapper>
+    </Wrapper>
+)
 
 Bar.defaultProps = {
-    onTermsChange: () => {}
+    onCloseButtonClick: noop,
+    onTermsChange: noop,
 }
 
 Bar.propTypes = {

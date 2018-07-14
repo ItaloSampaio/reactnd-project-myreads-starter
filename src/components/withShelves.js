@@ -6,11 +6,11 @@ const data = [
     { id: 'read', title: 'Read' }
 ]
 
-export default function WithShelves(InnerComponent) {
-    return props => (
-        <InnerComponent 
-            {...props}
-            shelves={data}
-            />
-    )
-}
+const withShelves = InnerComponent => props => (
+    <InnerComponent 
+        {...props}
+        shelves={data}
+        />
+)
+
+export default withShelves

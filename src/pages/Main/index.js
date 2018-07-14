@@ -1,14 +1,13 @@
 import React from 'react'
 
-import Book from '../../components/Book'
+import BookWithChanger from '../../components/BookWithChanger'
 import Loading from '../../components/Loading'
+import withShelves from '../../components/withShelves'
 
 import AppBar from './AppBar'
 import BooksContent from './BooksContent'
 import Bookshelf from './Bookshelf'
 import OpenSearchButton from './OpenSearchButton'
-
-import withShelves from '../withShelves'
 
 import * as BooksAPI from '../../api/BooksAPI'
 import { handleNetworkError } from '../../utils'
@@ -48,19 +47,19 @@ class MainPage extends React.Component {
                 key={shelfData.id}
                 title={shelfData.title}>
                 {filteredBooks.map(book =>
-                    <Book
+                    <BookWithChanger
                         key={book.id}
                         coverWidth={128}
                         coverHeight={193}
                         coverImageSource={book.imageLinks.thumbnail}
                         title={book.title}
-                        authors={(book.authors || []).join(', ')}
+                        authors={book.authors.join(', ')}
                         currentShelf={book.shelf}
-                        shelves={shelves}
+                        shelfOptions={shelves}
                         onChangeShelf={this.handleShelfChange(book)}
                         />
                 )}
-            </Bookshelf>   
+            </Bookshelf>
         )
     }
 

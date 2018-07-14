@@ -13,13 +13,11 @@ const Wrapper = styled.ol`
 `
 Wrapper.displayName = 'Wrapper'
 
-function BooksGrid(props) {
-    return (
-        <Wrapper>
-            {props.children}
-        </Wrapper>
-    )
-}
+const BooksGrid = props => (
+    <Wrapper>
+        {props.children}
+    </Wrapper>
+)
 
 BooksGrid.propTypes = {
     children: PropTypes.oneOfType([

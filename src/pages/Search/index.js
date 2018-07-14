@@ -2,13 +2,12 @@ import React from 'react'
 import { debounce } from 'lodash'
 
 import BooksGrid from '../../components/BooksGrid'
-import Book from '../../components/Book'
+import BookWithChanger from '../../components/BookWithChanger'
 import Loading from '../../components/Loading'
+import withShelves from '../../components/withShelves'
 
 import Bar from './Bar'
 import ResultsContent from './ResultsContent'
-
-import withShelves from '../withShelves'
 
 import * as BooksAPI from '../../api/BooksAPI'
 import { handleNetworkError } from '../../utils'
@@ -41,15 +40,15 @@ class SearchPage extends React.Component {
 
     renderSearchResult = () => {
         return this.state.books.map(book => 
-            <Book
+            <BookWithChanger
                 key={book.id}
                 coverWidth={128}
                 coverHeight={193}
                 coverImageSource={book.imageLinks.thumbnail}
                 title={book.title}
-                authors={book.authors}
+                authors={book.authors.join(', ')}
                 currentShelf={book.shelf}
-                shelves={this.props.shelves}
+                shelfOptions={this.props.shelves}
                 onChangeShelf={this.handleShelfChange(book)}
                 />
         )
@@ -81,10 +80,6 @@ class SearchPage extends React.Component {
     }, 300)
 
     handleSearchResult = result => {
-
-        if(!(result instanceof Array))
-            return []
-
         return result
             //Merge result with current books
             .map(targetBook => { 
@@ -94,14 +89,7 @@ class SearchPage extends React.Component {
 
                 return alreadySelectedBook || targetBook
             })
-            //Normalize data
-            .map(book => ({ 
-                ...book,
-                imageLinks: book.imageLinks || {},
-                authors: (book.authors || []).join(', '),
-                shelf: book.shelf || 'none'
-            }))
-    }
+    }    
 
     handleShelfChange = targetBook => async targetShelf => {
         //Hold the old state to rollback if it's not possible to update the book in the API
