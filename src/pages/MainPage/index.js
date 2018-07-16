@@ -4,7 +4,7 @@ import BookWithChanger from '../../components/BookWithChanger'
 import Loading from '../../components/Loading'
 import withShelves from '../../components/withShelves'
 
-import AppBar from './AppBar'
+import Bar from './Bar'
 import BooksContent from './BooksContent'
 import Bookshelf from './Bookshelf'
 import OpenSearchButton from './OpenSearchButton'
@@ -24,7 +24,7 @@ class MainPage extends React.Component {
 
         return (
             <div>
-                <AppBar />
+                <Bar />
                 <BooksContent>
                     {loading
                         ? <Loading />

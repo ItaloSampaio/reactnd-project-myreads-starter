@@ -2,8 +2,8 @@ import React from 'react'
 import { injectGlobal } from 'styled-components'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
-import MainPage from './pages/Main'
-import SearchPage from './pages/Search'
+import MainPage from './pages/MainPage'
+import SearchPage from './pages/SearchPage'
 
 injectGlobal`  
     html, body, .root {
