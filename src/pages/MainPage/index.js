@@ -1,4 +1,5 @@
 import React from 'react'
+import { sortBy } from 'lodash'
 
 import BookWithChanger from '../../components/BookWithChanger'
 import Loading from '../../components/Loading'
@@ -81,7 +82,7 @@ class MainPage extends React.Component {
                 : book
         })
         //Render optimistic result
-        this.setState({ books })
+        this.setState({ books: sortBy(books, ['title']) })
         
         try {
             await BooksAPI.update(targetBook, targetShelf)

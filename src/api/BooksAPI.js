@@ -1,3 +1,4 @@
+import { sortBy } from 'lodash'
 
 const api = "https://reactnd-books-api.udacity.com"
 
@@ -25,6 +26,10 @@ const normalizeBooksData = books => {
         : []
 }
 
+const sortByTitle = books => {
+    return sortBy(books, ['title'])
+}
+
 export const get = (bookId) =>
   fetch(`${api}/books/${bookId}`, { headers })
     .then(res => res.json())
@@ -36,6 +41,7 @@ export const getAll = () =>
     .then(res => res.json())
     .then(data => data.books)
     .then(normalizeBooksData)
+    .then(sortByTitle)
 
 export const update = (book, shelf) =>
   fetch(`${api}/books/${book.id}`, {
@@ -60,3 +66,4 @@ export const search = (query) =>
     .then(res => res.json())
     .then(data => data.books)
     .then(normalizeBooksData)
+    .then(sortByTitle)
