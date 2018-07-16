@@ -26,7 +26,13 @@ const Cover = styled.div`
     background: #eee;
     width: ${props => props.coverWidth}px;
     height: ${props => props.coverHeight}px;
-    background-image: url(${props => props.coverImageSource})
+    background-image: url(${props => props.coverImageSource});
+    cursor: pointer;
+    transition: transform 0.2s;
+
+    &:hover {
+        transform: scale(1.05);
+    }
 `
 Cover.displayName = 'Cover'
 

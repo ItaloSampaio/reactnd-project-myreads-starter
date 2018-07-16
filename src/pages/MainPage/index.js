@@ -46,6 +46,7 @@ class MainPage extends React.Component {
         return (
             <Bookshelf
                 key={shelfData.id}
+                iconName={shelfData.iconName}
                 title={shelfData.title}>
                 {filteredBooks.map(book =>
                     <BookWithChanger
@@ -98,6 +99,7 @@ class MainPage extends React.Component {
     async componentDidMount() {
         try {
             const books = await BooksAPI.getAll()
+            console.log('books:', books)
             this.setState({ books })
         }
         catch(err) {

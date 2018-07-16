@@ -12,7 +12,7 @@ const Wrapper = styled.div`
     left: 0;
     z-index: 5;
     display: flex;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 0 6px rgba(0,0,0,0.23);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.19), 0 0 6px rgba(0,0,0,0.23);
 `
 Wrapper.displayName = 'Wrapper'
 
