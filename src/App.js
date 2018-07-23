@@ -3,12 +3,16 @@ import { injectGlobal } from 'styled-components'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faThumbtack, faGlasses, faCheck } from '@fortawesome/free-solid-svg-icons'
+
+import { 
+    faThumbtack, faGlasses, faCheck, 
+    faCaretDown, faTrash, faSearch 
+} from '@fortawesome/free-solid-svg-icons'
 
 import MainPage from './pages/MainPage'
 import SearchPage from './pages/SearchPage'
 
-const icons = [faThumbtack, faGlasses, faCheck]
+const icons = [faThumbtack, faGlasses, faCheck, faCaretDown, faTrash, faSearch]
 icons.forEach(icon => library.add(icon))
 
 injectGlobal`  
@@ -25,7 +29,8 @@ injectGlobal`
     }
     
     body, .app {        
-        background-color: #f1f1f1;
+        background-color: #494978;
+        font-family: 'Quicksand', serif;
     }
     
     *, *:before, *:after {

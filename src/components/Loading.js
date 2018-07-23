@@ -14,7 +14,7 @@ const Loading = () => (
     <Wrapper>
         <ReactLoading 
             type="bubbles" 
-            color="#2e7c31" 
+            color="white" 
             height={200} 
             width={112} 
             />

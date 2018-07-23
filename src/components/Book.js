@@ -39,9 +39,11 @@ Cover.displayName = 'Cover'
 const TextInfo = styled.div`
     font-size: 0.8em;
 `
+TextInfo.displayName = 'TextInfo'
 
 const Title = styled(TextInfo)`
     margin-top: 10px;
+    color: white;
 `
 Title.displayName = 'Title'
 

@@ -3,8 +3,9 @@ import styled from 'styled-components'
 
 const Bar = styled.div`
     padding: 10px 0;
-    background: #2e7c31;
     text-align: center;
+    font-family: 'Lobster', cursive;
+    text-shadow: 2px 2px 8px #000000;
 `
 Bar.displayName = 'Bar'
 

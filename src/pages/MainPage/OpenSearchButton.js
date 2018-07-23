@@ -17,9 +17,8 @@ function OpenSearchButton(props) {
     return (
         <Wrapper
             diameter={50}
-            iconSize={28}
-            backgroundColor={'#2e7d32'}
-            iconSource={addImage}
+            backgroundColor="#ec679e"
+            iconName="search"
             onClick={props.onClick}
             />
     )

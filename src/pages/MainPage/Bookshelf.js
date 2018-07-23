@@ -8,11 +8,9 @@ import BooksGrid from '../../components/BooksGrid'
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
-    padding-bottom: 20px;
-    background-color: white;
+    padding-bottom: 20px;    
     margin: 20px;
     border-radius: 4px;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   
     @media (min-width: 600px) {
         padding-bottom: 40px;
@@ -23,10 +21,12 @@ Wrapper.displayName = 'Wrapper'
 const TitleWrapper = styled.div`
     margin: 12px 20px;
     padding: 0 7px;
+    padding-bottom: 7px;
     display: flex;
     flex-direction: row;
     align-items: center;
-    border-bottom: 1px solid #dedede;
+    border-bottom: 1px solid #9e9e9e;
+    color: white;
 `
 
 const Title = styled.h2`
@@ -43,7 +43,10 @@ function Bookshelf(props) {
     return (
         <Wrapper>
             <TitleWrapper>
-                <FontAwesomeIcon icon={props.iconName} />
+                <FontAwesomeIcon 
+                    icon={props.iconName} 
+                    color="#ec679e" 
+                    />
                 <Title>{props.title}</Title>
             </TitleWrapper>
             <Books>

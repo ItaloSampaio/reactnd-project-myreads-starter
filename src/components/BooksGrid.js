@@ -4,10 +4,9 @@ import PropTypes from 'prop-types'
 
 const Wrapper = styled.ol`
     list-style-type: none;
-    padding: 0;
+    padding: 0px;
     margin: 0;
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
 `
 Wrapper.displayName = 'Wrapper'
